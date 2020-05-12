@@ -2,6 +2,7 @@ package com.github.opengrabeso.github
 package rest
 
 import com.avsystem.commons.serialization.transientDefault
+import java.time.ZonedDateTime
 
 import scala.concurrent.Future
 import model._
@@ -22,7 +23,18 @@ trait IssuesAPI {
   ): Future[Issue]
 
   @GET
-  def comments: Future[DataWithHeaders[Seq[Comment]]]
+  def comments(
+    @transientDefault since: ZonedDateTime = null,
+    @transientDefault page: Int = 0,
+    @transientDefault per_page: Int = 0,
+  ): Future[DataWithHeaders[Seq[Comment]]]
+
+  @GET
+  def events(
+    @transientDefault since: ZonedDateTime = null,
+    @transientDefault page: Int = 0,
+    @transientDefault per_page: Int = 0,
+  ): Future[DataWithHeaders[Seq[Event]]]
 
   @POST("comments")
   def createComment(body: String): Future[Comment]
