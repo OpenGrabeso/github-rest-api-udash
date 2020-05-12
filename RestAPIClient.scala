@@ -11,8 +11,8 @@ import io.udash.rest.{RestException, SttpRestClient}
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object RestAPIClient {
-  implicit val sttpBackend: SttpBackend[Future, Nothing] = SttpRestClient.defaultBackend()
+class RestAPIClient(sttpBackend: SttpBackend[Future, Nothing]) {
+  private implicit val backend = sttpBackend
   val api: RestAPI = SttpRestClient[RestAPI]("https://api.github.com")
   def apply(): RestAPI = api
 
