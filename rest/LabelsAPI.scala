@@ -9,7 +9,7 @@ import scala.concurrent.Future
 
 trait LabelsAPI {
   @GET("")
-  def apply(ref: String): Future[Seq[Label]]
+  def apply(): Future[Seq[Label]]
 
   @GET("")
   def named(@Path name: String): Future[Label]
