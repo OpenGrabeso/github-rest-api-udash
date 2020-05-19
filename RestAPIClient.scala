@@ -34,8 +34,8 @@ class RestAPIClient(sttpBackend: SttpBackend[Future, Nothing]) {
   )
 
   // many APIs return URLs which should be used to obtain more information - this can be used to have the result decoded
-  def request[T](uri: String, token: String, method: Method = Method.GET)(implicit asReal: AsReal[RestResponse, T]): Future[T] = {
-    val request = sttp.method(method, uri"$uri").auth.bearer(token)
+  def request[T](uri: String, token: String, method: Method = Method.GET, headers: Seq[(String, String)] = Seq.empty)(implicit asReal: AsReal[RestResponse, T]): Future[T] = {
+    val request = sttp.method(method, uri"$uri").auth.bearer(token).headers(headers:_*)
     sttpBackend.send(request).map { r =>
       val raw = fromSttpResponse(r)
       implicitly[AsReal[RestResponse, T]].asReal(raw)
@@ -43,8 +43,8 @@ class RestAPIClient(sttpBackend: SttpBackend[Future, Nothing]) {
   }
 
   // used for issue paging - use the provided URL and process the result headers
-  def requestWithHeaders[T: GenCodec](uri: String, token: String): Future[DataWithHeaders[T]] = {
-    val request = sttp.method(Method.GET, uri"$uri").auth.bearer(token)
+  def requestWithHeaders[T: GenCodec](uri: String, token: String, headers: Seq[(String, String)] = Seq.empty): Future[DataWithHeaders[T]] = {
+    val request = sttp.method(Method.GET, uri"$uri").auth.bearer(token).headers(headers:_*)
 
     sttpBackend.send(request).map { r =>
       val raw = fromSttpResponse(r)
