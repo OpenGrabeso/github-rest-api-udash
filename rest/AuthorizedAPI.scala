@@ -12,6 +12,7 @@ trait AuthorizedAPI {
 
   def repos(owner: String, repo: String): RepositoryAPI
 
+  def search: SearchAPI
 
   def notifications: NotificationsAPI
 
