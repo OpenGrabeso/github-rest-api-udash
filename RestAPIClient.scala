@@ -49,7 +49,7 @@ class RestAPIClient(sttpBackend: SttpBackend[Future, Nothing]) {
     sttpBackend.send(request).map { r =>
       val raw = fromSttpResponse(r)
       import io.udash.rest.GenCodecRestImplicits._
-      EnhancedRestImplicits.fromResponse[T].asReal(raw)
+      EnhancedRestImplicits.fromResponse[Seq[T]].asReal(raw)
     }
   }
 }

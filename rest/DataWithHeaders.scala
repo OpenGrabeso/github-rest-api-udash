@@ -48,7 +48,7 @@ object DataWithHeaders {
 
   trait Implicits {
 
-    implicit def fromResponse[T](implicit fromBody: AsReal[HttpBody, Seq[T]]): AsReal[RestResponse, DataWithHeaders[Seq[T]]] = AsReal.create {
+    implicit def fromResponse[T](implicit fromBody: AsReal[HttpBody, T]): AsReal[RestResponse, DataWithHeaders[T]] = AsReal.create {
       resp =>
         if (resp.isSuccess) {
           DataWithHeaders(fromBody.asReal(resp.body), headersFromResponse(resp))

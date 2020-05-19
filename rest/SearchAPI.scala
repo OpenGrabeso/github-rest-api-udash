@@ -14,7 +14,8 @@ trait SearchAPI {
     q: String, // The query contains one or more search keywords and qualifiers - https://developer.github.com/v3/search/#constructing-a-search-query
     @transientDefault sort: String = null, // comments, reactions, ...., interactions, created, updated. Default: best match
     @transientDefault order: String = null, // desc or asc This parameter is ignored unless you provide sort. Default: desc
-  ): Future[SearchResultIssues]
+    @Header("Accept") accept: String = "application/vnd.github.v3.text-match+json"
+  ): Future[DataWithHeaders[SearchResultIssues]]
 }
 
 object SearchAPI extends RestClientApiCompanion[EnhancedRestImplicits,SearchAPI](EnhancedRestImplicits)

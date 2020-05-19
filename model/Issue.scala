@@ -17,7 +17,8 @@ case class Issue(
   labels: Array[Label],
   assignees: Array[User],
   created_at: ZonedDateTime,
-  updated_at: ZonedDateTime
+  updated_at: ZonedDateTime,
+  text_matches: Array[TextMatchIssue] = Array.empty // used in search API only
 )
 
 object Issue extends EnhancedRestDataCompanion[Issue]
