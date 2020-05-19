@@ -43,13 +43,13 @@ class RestAPIClient(sttpBackend: SttpBackend[Future, Nothing]) {
   }
 
   // used for issue paging - use the provided URL and process the result headers
-  def requestWithHeaders[T: GenCodec](uri: String, token: String): Future[DataWithHeaders[Seq[T]]] = {
+  def requestWithHeaders[T: GenCodec](uri: String, token: String): Future[DataWithHeaders[T]] = {
     val request = sttp.method(Method.GET, uri"$uri").auth.bearer(token)
 
     sttpBackend.send(request).map { r =>
       val raw = fromSttpResponse(r)
       import io.udash.rest.GenCodecRestImplicits._
-      EnhancedRestImplicits.fromResponse[Seq[T]].asReal(raw)
+      EnhancedRestImplicits.fromResponse[T].asReal(raw)
     }
   }
 }
