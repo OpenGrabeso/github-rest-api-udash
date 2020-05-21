@@ -18,8 +18,8 @@ trait IssuesAPI {
     body: String,
     state: String,
     @transientDefault milestone: Int = -1,
-    labels: Array[String],
-    assignees: Array[String]
+    labels: Seq[String],
+    assignees: Seq[String]
   ): Future[Issue]
 
   @GET
