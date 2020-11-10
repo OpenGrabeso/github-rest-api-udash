@@ -14,12 +14,12 @@ trait IssuesAPI {
 
   @PATCH("")
   def update(
-    title: String,
-    body: String,
-    state: String,
+    @transientDefault title: String = null,
+    @transientDefault body: String = null,
+    @transientDefault state: String = null,
     @transientDefault milestone: Int = -1,
-    labels: Seq[String],
-    assignees: Seq[String]
+    @transientDefault labels: Seq[String] = null,
+    @transientDefault assignees: Seq[String] = null
   ): Future[Issue]
 
   @GET
