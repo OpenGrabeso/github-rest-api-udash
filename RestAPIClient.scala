@@ -11,10 +11,10 @@ import io.udash.rest.{RestException, SttpRestClient}
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class RestAPIClient(sttpBackend: SttpBackend[Future, Nothing]) {
+class RestAPIClient[TAPI: RawRest.AsRealRpc : RestMetadata](sttpBackend: SttpBackend[Future, Nothing], uri: String) {
   private implicit val backend = sttpBackend
-  val api: RestAPI = SttpRestClient[RestAPI]("https://api.github.com")
-  def apply(): RestAPI = api
+  val api: TAPI = SttpRestClient[TAPI](uri)
+  def apply(): TAPI = api
 
   // adapted from io.udash.rest.SttpRestClient#fromSttpResponse
   // we cannot use it directly, as it is private there
