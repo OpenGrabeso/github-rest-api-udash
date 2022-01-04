@@ -8,6 +8,8 @@ import rest.EnhancedRestDataCompanion
 case class Pull(
   id: Long,
   number: Long,
+  pull_request: Option[PRInfo] = None,
+  html_url: String,
   title: String,
   body: String,
   user: User,
@@ -25,7 +27,7 @@ case class Pull(
   requested_teams: Array[Team],
   // common with Issue, but with a default value - last
   text_matches: Array[TextMatchIssue] = Array.empty // used in search API only
-)
+) extends IssueOrPull
 
 
-object Pull extends EnhancedRestDataCompanion[Issue]
+object Pull extends EnhancedRestDataCompanion[Pull]

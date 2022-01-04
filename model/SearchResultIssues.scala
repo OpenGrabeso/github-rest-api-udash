@@ -7,7 +7,7 @@ import rest.EnhancedRestDataCompanion
 case class SearchResultIssues(
   total_count: Long,
   incomplete_results: Boolean,
-  items: Seq[Issue]
+  items: Seq[Issue] = Seq.empty
 )
 
 object SearchResultIssues extends EnhancedRestDataCompanion[SearchResultIssues]
