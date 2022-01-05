@@ -6,6 +6,11 @@ import java.time.ZonedDateTime
 import rest.EnhancedRestDataCompanion
 
 // https://developer.github.com/v3/issues/events/
+
+/**
+ * @param event see https://docs.github.com/en/developers/webhooks-and-events/events/issue-event-types
+ *              we use: reopened, closed, mentioned, assigned, unassigned, review_requested, review_request_removed
+* */
 case class Event(
   id: Long,
   actor: User,
