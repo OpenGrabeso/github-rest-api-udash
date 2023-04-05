@@ -9,7 +9,7 @@ trait ZonedDateTimeCodecs {
 
   implicit val zonedDateTimeCodec: GenCodec[ZonedDateTime] = new GenCodec[ZonedDateTime] {
     override def read(input: Input): ZonedDateTime = {
-      if (input.readNull) null
+      if (input.readNull()) null
       else {
         val str = input.readSimple().readString()
         ZonedDateTime.parse(str)
