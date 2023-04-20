@@ -11,7 +11,7 @@ case class TextData(data: String)
 
 object TextData extends EnhancedRestDataCompanion[TextData] {
   implicit val rawReal: AsRawReal[RestResponse, TextData] = AsRawReal.create(
-    real => RestResponse(200, IMapping[PlainValue](), HttpBody.textual(real.data)),
+    real => RestResponse(200, IMapping.create[PlainValue](), HttpBody.textual(real.data)),
     raw => TextData(raw.body.readText())
   )
 
