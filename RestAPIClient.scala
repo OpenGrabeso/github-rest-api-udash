@@ -10,7 +10,7 @@ import io.udash.rest.{RestException, SttpRestClient}
 import sttp.model.{Header, Method}
 
 import scala.concurrent.Future
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class RestAPIClient[TAPI: RawRest.AsRealRpc : RestMetadata](sttpBackend: SttpBackend[Future, Any], uri: String) {
   private implicit val backend = sttpBackend
