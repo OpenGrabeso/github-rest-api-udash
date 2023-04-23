@@ -58,6 +58,8 @@ trait RepositoryAPI {
   def labels: LabelsAPI
 
   def collaborators: CollaboratorsAPI
+
+  def actions: ActionsAPI
 }
 
 object RepositoryAPI extends RestClientApiCompanion[EnhancedRestImplicits,RepositoryAPI](EnhancedRestImplicits)
