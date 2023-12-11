@@ -13,7 +13,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class RestAPIClient[TAPI: RawRest.AsRealRpc : RestMetadata](sttpBackend: SttpBackend[Future, Any], uri: String) {
-  private implicit val backend = sttpBackend
+  private implicit val backend: SttpBackend[Future, Any] = sttpBackend
   val api: TAPI = SttpRestClient.future[TAPI](uri)
   def apply(): TAPI = api
 
